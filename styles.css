@@ -1,0 +1,316 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', 'Courier New', monospace;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #00ff00;
+    overflow: hidden;
+}
+
+.game-container {
+    position: relative;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    border-radius: 5px;
+}
+
+.score-display, .weapon-display {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+#gameCanvas {
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    display: block;
+    background: #000;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+.game-controls {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.control-buttons {
+    margin-bottom: 15px;
+}
+
+.control-buttons button {
+    background: linear-gradient(45deg, #00ff00, #00cc00);
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-shadow: 0 0 2px #000;
+}
+
+.control-buttons button:hover {
+    background: linear-gradient(45deg, #00ff00, #00aa00);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+}
+
+.mobile-controls {
+    display: none;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.d-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
+    gap: 5px;
+    justify-content: center;
+}
+
+.dpad-btn {
+    background: linear-gradient(45deg, #333, #555);
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+.dpad-btn:active {
+    background: linear-gradient(45deg, #00ff00, #00aa00);
+    color: #000;
+    transform: scale(0.95);
+}
+
+.dpad-btn[data-direction="up"] {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.dpad-btn[data-direction="down"] {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.dpad-btn[data-direction="left"] {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.dpad-btn[data-direction="right"] {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+#fireBtn {
+    background: linear-gradient(45deg, #ff0000, #aa0000);
+    color: #fff;
+    border: 2px solid #ff0000;
+    padding: 20px 30px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-shadow: 0 0 5px #ff0000;
+    animation: pulse 2s infinite;
+}
+
+#fireBtn:active {
+    background: linear-gradient(45deg, #ff0000, #880000);
+    transform: scale(0.95);
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); }
+}
+
+.game-menu, .game-over, .stage-clear {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    z-index: 10;
+}
+
+.game-menu h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+    background: linear-gradient(45deg, #00ff00, #00ffaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
+    to { text-shadow: 0 0 30px #00ff00, 0 0 40px #00ff00, 0 0 50px #00ff00; }
+}
+
+.game-menu p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.game-menu button, .game-over button, .stage-clear button {
+    background: linear-gradient(45deg, #00ff00, #00aa00);
+    color: #000;
+    border: none;
+    padding: 15px 40px;
+    font-size: 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 0 0 3px #fff;
+}
+
+.game-menu button:hover, .game-over button:hover, .stage-clear button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 255, 0, 0.5);
+}
+
+.instructions {
+    text-align: center;
+    max-width: 400px;
+    line-height: 1.6;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+.instructions h3 {
+    margin-bottom: 10px;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.game-over h2 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    color: #ff0000;
+    text-shadow: 0 0 20px #ff0000;
+    animation: flash 1s infinite;
+}
+
+.stage-clear h2 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    color: #00ffff;
+    text-shadow: 0 0 20px #00ffff;
+    animation: glow 2s infinite;
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+#finalScore, #highScoreDisplay, #stageScore {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+#highScoreDisplay {
+    color: #ffff00;
+    text-shadow: 0 0 10px #ffff00;
+}
+
+#stageScore {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+@media (max-width: 768px) {
+    .mobile-controls {
+        display: grid;
+    }
+    
+    #gameCanvas {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+    }
+    
+    .game-container {
+        padding: 10px;
+        margin: 10px;
+    }
+    
+    .score-display, .weapon-display {
+        font-size: 12px;
+        gap: 10px;
+    }
+    
+    .game-menu h1 {
+        font-size: 36px;
+    }
+}
+
+/* Scanline effect for retro feel */
+#gameCanvas::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 0, 0.03) 2px,
+        rgba(0, 255, 0, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raiden 3 - Classic Arcade Shooting Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <div class="score-display">
+                <span>Score: <span id="score">0</span></span>
+                <span>Hi-Score: <span id="highScore">0</span></span>
+                <span>Lives: <span id="lives">3</span></span>
+                <span>Stage: <span id="stage">1</span></span>
+            </div>
+            <div class="weapon-display">
+                <span>Weapon: <span id="weaponType">VULCAN</span></span>
+                <span>Power: <span id="powerLevel">1</span></span>
+            </div>
+        </div>
+        
+        <canvas id="gameCanvas" width="400" height="600"></canvas>
+        
+        <div class="game-controls">
+            <div class="control-buttons">
+                <button id="startBtn">Start Game</button>
+                <button id="pauseBtn">Pause</button>
+                <button id="restartBtn">Restart</button>
+            </div>
+            <div class="mobile-controls">
+                <div class="d-pad">
+                    <button class="dpad-btn" data-direction="up">↑</button>
+                    <button class="dpad-btn" data-direction="down">↓</button>
+                    <button class="dpad-btn" data-direction="left">←</button>
+                    <button class="dpad-btn" data-direction="right">→</button>
+                </div>
+                <button id="fireBtn">FIRE</button>
+            </div>
+        </div>
+        
+        <div class="game-menu" id="gameMenu">
+            <h1>RAIDEN 3</h1>
+            <p>Classic Arcade Shooting Game</p>
+            <button id="menuStartBtn">Start Game</button>
+            <div class="instructions">
+                <h3>How to Play:</h3>
+                <p>Desktop: Arrow Keys to move, Space to shoot</p>
+                <p>Mobile: Use on-screen controls</p>
+                <p>Collect power-ups to upgrade weapons!</p>
+                <p>VULCAN → LASER → PLASMA → MISSILE</p>
+            </div>
+        </div>
+        
+        <div class="game-over" id="gameOver">
+            <h2 id="gameOverTitle">GAME OVER</h2>
+            <p id="finalScore">Final Score: 0</p>
+            <p id="highScoreDisplay">High Score: 0</p>
+            <button id="playAgainBtn">Play Again</button>
+        </div>
+        
+        <div class="stage-clear" id="stageClear">
+            <h2>STAGE CLEAR!</h2>
+            <p id="stageScore">Stage Score: 0</p>
+            <button id="nextStageBtn">Next Stage</button>
+        </div>
+    </div>
+    
+    <script src="sounds.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
