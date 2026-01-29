@@ -11,3 +11,4 @@ build/
 .vercel/
 *.tmp
 *.temp
+.vercel
